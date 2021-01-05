@@ -1,0 +1,16 @@
+<h1>SaraCinema: Schedule</h1>
+
+<table>
+    <tr>
+        <th>Starting at</th>
+        <th>Duration</th>
+        <th>Title</th>
+    </tr>
+    {{#each schedule}}
+    <tr>
+        <td>{{startDate}}</td>
+        <td>{{duration}}</td>
+        <td>{{title}}</td>
+    </tr>
+    {{/each}}
+</table>

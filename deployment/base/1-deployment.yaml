@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bot-server
+  namespace: saracinema
+spec:
+  selector:
+    matchLabels:
+      app: bot-server
+  template:
+    metadata:
+      labels:
+        app: bot-server
+    spec:
+      containers:
+      - name: bot-server
+        image: registry.wyrmfire.services/saracinema:latest # built from source
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+          name: http

@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: bot-server
+  namespace: saracinema
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`saracinema.wyrmfire.services`)
+    kind: Rule
+    services:
+    - name: bot-server
+      namespace: saracinema
+      port: 80
+  tls:
+    certResolver: letsencrypt
