@@ -1,4 +1,9 @@
 node_modules
 yarn*
-.env
 dist
+
+# secret data
+traefik-chart-values.yaml
+2-cloudflare-credentials.yaml
+3-traefik-dashboard-auth.yaml
+.env

@@ -12,9 +12,11 @@ spec:
       labels:
         app: bot-server
     spec:
+      imagePullSecrets:
+        - name: "sara-watch" 
       containers:
       - name: bot-server
-        image: registry.wyrmfire.services/saracinema:latest # built from source
+        image:  registry.digitalocean.com/sara-watch/saracinema # built from source
         imagePullPolicy: Always
         resources:
           limits:

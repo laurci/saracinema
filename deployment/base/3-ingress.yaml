@@ -7,8 +7,10 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`saracinema.wyrmfire.services`)
+  - match: Host(`cinema.sara.watch`)
     kind: Rule
+    middlewares:
+      - name: headers-default@file
     services:
     - name: bot-server
       namespace: saracinema

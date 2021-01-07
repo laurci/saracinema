@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: traefik-dashboard-auth
+  namespace: traefik
+data:
+  users: |2
+    htpasswd -nb ------- ******* | openssl base64
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-dashboard-basicauth
+  namespace: traefik
+spec:
+  basicAuth:
+    secret: traefik-dashboard-auth

@@ -119,14 +119,15 @@ web.set("view engine", "handlebars");
         const postSchedule = sortedSchedule.filter(x => x.fromNow.milliseconds() >= 0);
 
         const lastPrev = prevSchedule.pop();
-        
+
+        console.log("now");        
+
         let heading = "";
-        if(lastPrev) {
-            if(now.isBetween(lastPrev.startDate, lastPrev.endDate)) {
-                heading = "🎬 " + lastPrev.title;
-            }
+        if(lastPrev && now.isBetween(lastPrev.startDate, lastPrev.endDate)) {
+            heading = "🎬 " + lastPrev.title;
         } else {
             const firstPost = postSchedule.shift();
+            
             heading = "🚀 In about " + firstPost.fromNow.humanize() + ": " + firstPost.title;
     
             if(firstPost.fromNow.hours() == 0 && firstPost.fromNow.minutes() > 50) {
@@ -148,8 +149,10 @@ web.set("view engine", "handlebars");
         
         console.log(heading);
 
-        if(channel.name != heading) {
-            channel = await channel.setName(heading);
+        if(heading !== "") {
+            if(channel.name != heading) {
+                channel = await channel.setName(heading);
+            }
         }
 
         timer = setTimeout(onUpdate, updateInterval * 1000);

@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - 0-namespace.yaml
+  - 1-traefik-config.yaml
+  - 2-cloudflare-credentials.yaml
+  - 3-traefik-dashboard-auth.yaml
+  - 4-traefik-dashboard-ingressroute.yaml
