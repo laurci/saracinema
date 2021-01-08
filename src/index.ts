@@ -9,7 +9,7 @@ import fetch from "node-fetch";
 import * as express from "express";
 import * as exphbs from "express-handlebars";
 
-import {Client, MessageEmbed} from "discord.js";
+import {Client, Message, MessageEmbed} from "discord.js";
 
 import {mDuration, utc} from "./date-utils";
 import e = require("express");
@@ -64,11 +64,14 @@ const getSchedule = async () => {
     return (data.values as string[][]).map(parseRow);
 };
 
-const parseMessageContent = (content: string) => {
+const parseMessageContext = (message: Message) => {
+    let content = message.content;
     if(content.indexOf("<@") == 0) {
         const _content = content.split(" ").map(x => x.trim());
         _content.shift();
         content = _content.join(" ");
+    } else {
+        return undefined;
     }
 
     if(content.indexOf("!") == 0) {
@@ -193,7 +196,9 @@ web.set("view engine", "handlebars");
 
         console.log("got message from channel: " + message.channel.id);
 
-        const context = parseMessageContent(message.content);
+        if(message.mentions.users.size == 0 || !message.mentions.users.every((user) => user.bot)) return; // make sure only bots are mentioned.
+
+        const context = parseMessageContext(message);
 
         if(message.channel.id != discordBackstageChannelId) {
             // public stuff
